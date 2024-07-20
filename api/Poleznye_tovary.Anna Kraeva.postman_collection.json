@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "d5e932ae-5f18-4680-9f2b-bddb2a27230d",
+		"name": "Poleznye_tovary.Anna Kraeva",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26370113"
+	},
+	"item": [
+		{
+			"name": "product search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var productId = pm.response.text().match(/data-product-id=\"(\\d+)\"/)[1];;\r",
+							"pm.collectionVariables.set(\"product_id\", productId);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/ajax/search/ajax_search_product.php?LANG_key=ru&S_CID={{token}}&search_val=шампунь",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"ajax",
+						"search",
+						"ajax_search_product.php"
+					],
+					"query": [
+						{
+							"key": "LANG_key",
+							"value": "ru"
+						},
+						{
+							"key": "S_wh",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "S_CID",
+							"value": "{{token}}"
+						},
+						{
+							"key": "S_cur_code",
+							"value": "rub",
+							"disabled": true
+						},
+						{
+							"key": "S_koef",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "S_hint_code",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "search_val",
+							"value": "шампунь"
+						},
+						{
+							"key": "S_customerID",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "debug_param",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add to cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "product_id",
+							"value": "{{product_id}}",
+							"type": "text"
+						},
+						{
+							"key": "this_listId",
+							"value": "search_list",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "LANG_key",
+							"value": "ru",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "S_wh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "S_CID",
+							"value": "{{token}}",
+							"type": "text"
+						},
+						{
+							"key": "S_cur_code",
+							"value": "rub",
+							"type": "text"
+						},
+						{
+							"key": "S_koef",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "S_hint_code",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "S_customerID",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/add_products_to_cart_from_preview.php",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"add_products_to_cart_from_preview.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var productId = pm.response.text().match(/data-item-id=\"(\\d+)\"/)[1];;\r",
+							"pm.collectionVariables.set(\"cart_Id\", productId);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cart/ajax_show_cart_preview.php?LANG_key=ru&S_wh=1&S_CID={{token}}&S_cur_code=rub",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"ajax_show_cart_preview.php"
+					],
+					"query": [
+						{
+							"key": "LANG_key",
+							"value": "ru"
+						},
+						{
+							"key": "S_wh",
+							"value": "1"
+						},
+						{
+							"key": "S_CID",
+							"value": "{{token}}"
+						},
+						{
+							"key": "S_cur_code",
+							"value": "rub"
+						},
+						{
+							"key": "S_koef",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "S_hint_code",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "S_customerID",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change quality",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "itemID",
+							"value": "{{cart_Id}}",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "action",
+							"value": "update_quantity",
+							"type": "text"
+						},
+						{
+							"key": "LANG_key",
+							"value": "ru",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "S_wh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "S_CID",
+							"value": "{{token}}",
+							"type": "text"
+						},
+						{
+							"key": "S_cur_code",
+							"value": "rub",
+							"type": "text"
+						},
+						{
+							"key": "S_koef",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "S_hint_code",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "S_customerID",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/action_with_basket_on_cart_page.php",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"action_with_basket_on_cart_page.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete from cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "product_id",
+							"value": "{{product_id}}",
+							"type": "text"
+						},
+						{
+							"key": "LANG_key",
+							"value": "ru",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "S_wh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "S_CID",
+							"value": "{{token}}",
+							"type": "text"
+						},
+						{
+							"key": "S_cur_code",
+							"value": "rub",
+							"type": "text"
+						},
+						{
+							"key": "S_koef",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "S_hint_code",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "S_customerID",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/delete_products_from_cart_preview.php",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"delete_products_from_cart_preview.php"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "product_id",
+			"value": ""
+		},
+		{
+			"key": "cart_Id",
+			"value": ""
+		},
+		{
+			"key": "baseUrl",
+			"value": "https://altaivita.ru/engine"
+		},
+		{
+			"key": "token",
+			"value": "afe4e648fd7118e098d1d1d7c0bedf55"
+		}
+	]
+}
