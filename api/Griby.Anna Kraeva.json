@@ -252,6 +252,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body is equal to 2\", function () {\r",
+							"    pm.response.to.have.body(\"2\");\r",
 							"});"
 						],
 						"type": "text/javascript",
