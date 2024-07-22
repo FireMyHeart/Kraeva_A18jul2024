@@ -29,7 +29,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/ajax/search/ajax_search_product.php?LANG_key=ru&S_CID={{token}}&search_val=шампунь",
+					"raw": "{{baseUrl}}/ajax/search/ajax_search_product.php?LANG_key=ru&S_CID={{token}}&search_val={{phrase}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -69,7 +69,7 @@
 						},
 						{
 							"key": "search_val",
-							"value": "шампунь"
+							"value": "{{phrase}}"
 						},
 						{
 							"key": "S_customerID",
@@ -95,6 +95,16 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check new_quantity\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.new_quantity).to.eql(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check status\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.status).to.eql('ok');\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -255,6 +265,16 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check new_quantity\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.sum_quantity).to.eql(\"5\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check status\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.status).to.eql('ok');\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -346,6 +366,16 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check new_quantity\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.products_amount).to.eql(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check status\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.status).to.eql('ok');\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -419,6 +449,28 @@
 			"response": []
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "product_id",
@@ -435,6 +487,11 @@
 		{
 			"key": "token",
 			"value": "afe4e648fd7118e098d1d1d7c0bedf55"
+		},
+		{
+			"key": "phrase",
+			"value": "шампунь",
+			"type": "string"
 		}
 	]
 }
