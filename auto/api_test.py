@@ -43,6 +43,7 @@ def test_1():
     with allure.step("Проверить, что товары в поисковой выдаче соответствуют поисковому запросу"):
         assert counter == len(product_ids)
 
+
 @allure.id("SKYPRO-2")
 @allure.epic("Алтайвита. API")
 @allure.story("Добавление товара в корзину")
@@ -74,6 +75,7 @@ def test_2():
     with allure.step("Проверить, что в корзине тот товар, который добавлялся в нее"):
         assert item_id == id
 
+
 @allure.id("SKYPRO-3")
 @allure.epic("Алтайвита. API")
 @allure.story("Изменение количества товара в корзине")
@@ -99,9 +101,9 @@ def test_3():
     with allure.step("Распарсить ответ и найти количество товара в корзине и общую сумму"):
         soup = BeautifulSoup(cart2.text, 'html.parser')
         total_q = soup.find('div', class_='sum').text
-        total_q = total_q.replace(' ','').replace('\n', '').replace('шт.', '')
+        total_q = total_q.replace(' ', '').replace('\n', '').replace('шт.', '')
         total_sum = soup.find('span', class_='dropdown-total').text
-        total_sum = total_sum.replace(' ','').replace('\n', '').replace('₽', '')
+        total_sum = total_sum.replace(' ', '').replace('\n', '').replace('₽', '')
     with allure.step("Очистка тестового пространства"):
         api.delete_from_cart(id, token)
     with allure.step("Проверить, что статус код изменения количества товара — 200"):

@@ -4,18 +4,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
 
+
 class MainPage:
     def __init__(self, driver):
         self._driver = driver
         self._driver.get("https://altaivita.ru/")
         self._driver.implicitly_wait(15)
         driver.maximize_window()
-    
+
     @allure.step("Добавить в кукис значение токена {cookie}")
     def cookies(self, cookie):
         self._driver.add_cookie(cookie)
         self._driver.refresh()
-    
+
     @allure.step("Ввести название товара {key} в поисковую строку и выполнить поиск")
     def enter_values(self, key):
         self._driver.find_element(By.CSS_SELECTOR, 'input.searchpro__field-input.js-searchpro__field-input').send_keys(key, Keys.RETURN)
@@ -23,7 +24,7 @@ class MainPage:
             EC.presence_of_element_located((By.CSS_SELECTOR, 'div.breadcrumbs'))
         )
         return self._driver.find_elements(By.CSS_SELECTOR, 'div.product__product-name a span')
-    
+
     @allure.step("Добавить товар в корзину")
     def add_to_cart(self, items):
         WebDriverWait(self._driver, 10).until(
@@ -49,12 +50,12 @@ class MainPage:
         t_price = self._driver.find_element(By.CSS_SELECTOR, 'span.js-cart_page_total_amount').text.replace('₽', '').replace(' ', '')
         quantity = self._driver.find_element(By.CSS_SELECTOR, 'span.num').text.replace(' ', '')
         return {'title': title, 'price': price, 't_price': t_price, 'quantity': quantity}
-    
+
     @allure.step("Изменить количество экземпляров на {qntt} в товаре")
     def change_quantity(self, qntt):
         for i in range(qntt-1):
             self._driver.find_element(By.CSS_SELECTOR, 'button.more.js-plus').click()
-    
+
     @allure.step("Удалить товар из корзины")
     def delete_item(self):
         self._driver.find_elements(By.CSS_SELECTOR, 'button i.fal.fa-times')[2].click()

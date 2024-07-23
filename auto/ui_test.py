@@ -10,6 +10,7 @@ cookie = {
     'value': 'afe4e648fd7118e098d1d1d7c0bedf55'
 }
 
+
 @allure.id("SKYPRO-4")
 @allure.epic("Алтайвита. UI")
 @allure.story("Поиск товара")
@@ -32,6 +33,7 @@ def test_find_book():
     driver.close
     with allure.step("Проверить, что товары из поисковой выдачи соответствуют введенному значению {phrase} в строку поиска"):
         assert counter == len(names)
+
 
 @allure.id("SKYPRO-5")
 @allure.epic("Алтайвита. UI")
@@ -57,6 +59,7 @@ def test_add_to_cart():
         assert result1['price'] == result1['t_price']
         assert result1['quantity'] == '1'
 
+
 @allure.id("SKYPRO-6")
 @allure.epic("Алтайвита. UI")
 @allure.story("Изменение единиц одного товара")
@@ -81,6 +84,7 @@ def test_change_qnnt():
     with allure.step("Проверить, что суммарная стоимость покупки соответствует цене за {q} единиц товара"):
         assert int(result1['t_price']) == int(result['price']) * q
         assert int(result1['quantity']) == q
+
 
 @allure.id("SKYPRO-7")
 @allure.epic("Алтайвита. UI")
